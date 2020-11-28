@@ -2,7 +2,7 @@
 
 Project of Advanced Computer Vision on Multiresolution and Multimodal Speech Recognition Transformers
 
-![alt text](https://github.com/Deathn0t/majore/tree/main/assets/model-graph.png "Model Graph")
+![alt text](https://github.com/Deathn0t/majore/blob/main/assets/model-graph.png "Model Graph")
 
 ## References
 

@@ -43,9 +43,23 @@ class AudioFeatureDataset(Dataset):
         return len(self.ids)
     
     def __getitem__(self, idx):
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
         sample_id = self.ids[idx]
         sample_ark = self.mapping[sample_id]
-        return kaldiio.load_mat(sample_ark)
+        sample_feature = kaldiio.load_mat(sample_ark)
+        sample = {'id': sample_id, 'audio': sample_feature.mean(axis=0)}
+        return sample
 
 if __name__ == "__main__":
-    pass
+    HOW2_PATH = 'data/how2-dataset/'
+    dataset = AudioFeatureDataset(HOW2_PATH, 'train')
+    print("Dataset size: ", len(dataset))
+    dataloader = DataLoader(dataset, batch_size=4, shuffle=True, num_workers=0)
+
+    for batch in dataloader:
+        print(type(batch['audio']))
+        print(batch['audio'].size())
+        print(batch['audio'])
+        
+        break

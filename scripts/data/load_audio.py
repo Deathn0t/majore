@@ -10,14 +10,14 @@ class AudioFeatureDataset(Dataset):
     
     def __init__(self, HOW2_PATH, subfolder):
         
-        if subfolder not in ['train', 'test', 'dev5']:
+        if subfolder not in ['train', 'val', 'dev5']:
             raise ValueError('subfolder must be either train, val or dev5')
         # Set relative paths for 300h
         self.HOW2_PATH = HOW2_PATH
         self.BASE_PATH = self.HOW2_PATH + 'how2-300h-v1/data/'
         self.AUDIO_PATH = self.HOW2_PATH + 'fbank_pitch_181506/'
         # Read id file
-        self.ids = self.get_ids(self.BASE_PATH + f'/{subfolder}/id')
+        self.ids = self.get_ids(self.BASE_PATH + f'{subfolder}/id')
         
         # Map id-audio
         self.mapping = self.make_dict()

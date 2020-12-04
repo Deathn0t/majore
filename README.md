@@ -9,6 +9,12 @@ Project of Advanced Computer Vision on Multiresolution and Multimodal Speech Rec
 ### On MacOS X
 
 ```console
+conda create -n vision python=3.7
+conda activate vision
+pip install -r requirements.txt
+```
+
+```console
 conda create -n vision python=3.6
 conda activate vision
 git clone --recursive https://github.com/pytorch/pytorch

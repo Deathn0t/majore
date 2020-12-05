@@ -10,14 +10,14 @@ class AudioFeatureDataset(Dataset):
     
     def __init__(self, HOW2_PATH, subfolder):
         
-        if subfolder not in ['train', 'val', 'dev5']:
+        if subfolder not in ['train', 'test', 'dev5']:
             raise ValueError('subfolder must be either train, val or dev5')
         # Set relative paths for 300h
         self.HOW2_PATH = HOW2_PATH
         self.BASE_PATH = self.HOW2_PATH + 'how2-300h-v1/data/'
         self.AUDIO_PATH = self.HOW2_PATH + 'fbank_pitch_181506/'
         # Read id file
-        self.ids = self.get_ids(self.BASE_PATH + f'{subfolder}/id')
+        self.ids = self.get_ids(self.BASE_PATH + f'/{subfolder}/id')
         
         # Map id-audio
         self.mapping = self.make_dict()
@@ -43,23 +43,22 @@ class AudioFeatureDataset(Dataset):
         return len(self.ids)
     
     def __getitem__(self, idx):
-        if torch.is_tensor(idx):
-            idx = idx.tolist()
         sample_id = self.ids[idx]
         sample_ark = self.mapping[sample_id]
-        sample_feature = kaldiio.load_mat(sample_ark)
-        sample = {'id': sample_id, 'audio': sample_feature.mean(axis=0)}
-        return sample
-
+        mat = kaldiio.load_mat(sample_ark)
+        padded = np.zeros((10807, 43))
+        padded[:mat.shape[0],: mat.shape[1]] = mat
+        return padded
+        
+        
 if __name__ == "__main__":
-    HOW2_PATH = 'data/how2-dataset/'
-    dataset = AudioFeatureDataset(HOW2_PATH, 'train')
+
+    path_how2 = "/Volumes/LaCie/vision/data/"
+    dataset = AudioFeatureDataset(path_how2,"train")
     print("Dataset size: ", len(dataset))
     dataloader = DataLoader(dataset, batch_size=4, shuffle=True, num_workers=0)
-
+    
     for batch in dataloader:
-        print(type(batch['audio']))
-        print(batch['audio'].size())
-        print(batch['audio'])
-        
+        print(batch.shape)
         break
+    pass

@@ -6,27 +6,14 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 
 
-def load_embeddings(fname):
-
-    fin = io.open(fname, 'r', encoding='utf-8', newline='\n', errors='ignore')
-    n, d = map(int, fin.readline().split())
-    data = {}
-    for line in fin:
-        tokens = line.rstrip().split(' ')
-        data[tokens[0]] = map(float, tokens[1:])
-        
-    dict_words = dict()
-    for k,v in data.items():
-        dict_words[k] = list(v)
-    return dict_words
-
 class TextDataset(Dataset):
+    """Face Landmarks dataset."""
 
-    def __init__(self, path_texts, mapping):
+    def __init__(self, path_texts, path_embeddings):
         
         self.path_texts = path_texts # avg pool
         self.texts, self.splitted, self.max_seg_word = self.load_texts()
-        self.mapping = mapping
+        self.mapping = self.load_embeddings(path_embeddings)
         self.size_emb = len(list(self.mapping["I"]))
         
 
@@ -65,7 +52,7 @@ class TextDataset(Dataset):
                     embeddings[index,:] = emb
                     index+=1
          
-        return embeddings
+        return embeddings        
                             
                  
     def load_texts(self):
@@ -93,19 +80,33 @@ class TextDataset(Dataset):
                 
             splitted.append(split)
             
+        print(len(lines))
+            
         return  np.array(text), np.array(splitted), largest_split
-
-
-if __name__ == "__main__":
+    
+    def load_embeddings(self,fname):
+        
+        fin = io.open(fname, 'r', encoding='utf-8', newline='\n', errors='ignore')
+        n, d = map(int, fin.readline().split())
+        data = {}
+        for line in fin:
+            tokens = line.rstrip().split(' ')
+            data[tokens[0]] = map(float, tokens[1:])
+        
+        dict_words = dict()
+        for k,v in data.items():
+            dict_words[k] = list(v)
+        return dict_words
+    
+if  __name__ == "__main__":
 
     path_how2 = "/Volumes/LaCie/vision/data/"
     
     path_texts = os.path.join(path_how2, "how2-300h-v1/data/train", "text.en")
     
     path_embeddings = os.path.join(path_how2, "how2-release/word_embedding/","cmu_partition.train.vec")
-    embeddings = load_embeddings(path_embeddings)
     
-    dataset = TextDataset(path_texts, embeddings)
+    dataset = TextDataset(path_texts, path_embeddings)
     print("Dataset size: ", len(dataset))
     dataloader = DataLoader(dataset, batch_size=4, shuffle=True, num_workers=0)
 

@@ -45,7 +45,20 @@ class AudioFeatureDataset(Dataset):
     def __getitem__(self, idx):
         sample_id = self.ids[idx]
         sample_ark = self.mapping[sample_id]
-        return kaldiio.load_mat(sample_ark)
-
+        mat = kaldiio.load_mat(sample_ark)
+        padded = np.zeros((10807, 43))
+        padded[:mat.shape[0],: mat.shape[1]] = mat
+        return padded
+        
+        
 if __name__ == "__main__":
+
+    path_how2 = "/Volumes/LaCie/vision/data/"
+    dataset = AudioFeatureDataset(path_how2,"train")
+    print("Dataset size: ", len(dataset))
+    dataloader = DataLoader(dataset, batch_size=4, shuffle=True, num_workers=0)
+    
+    for batch in dataloader:
+        print(batch.shape)
+        break
     pass

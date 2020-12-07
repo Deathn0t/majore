@@ -6,6 +6,8 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 
 
+path_valid = "how2-300h-v1/data/val"
+
 class VideoDataset(Dataset):
     """Face Landmarks dataset."""
 

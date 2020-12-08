@@ -7,10 +7,14 @@ from position_encoder import PositionalEncoding
 
 class AudioEncoder(nn.Module):
 
-    def __init__(self, audio_dim, audio_size, nhead, nlayer, d_model, d_feedforward, dropout):
+    def __init__(self, audio_dim, audio_size, nhead, nlayer, d_model, d_feedforward, dropout, down_sampling_factor):
         super(AudioEncoder, self).__init__()
 
-        self.fc1 = nn.Linear(audio_dim, d_model)
+        self.down_sampling = DownSampling(a=down_sampling_factor)
+
+        new_audio_size = int(audio_size/down_sampling_factor)
+
+        self.fc1 = nn.Linear(new_audio_size, d_model)
 
         self.pos_enc = PositionalEncoding(d_model = d_model, max_len = audio_size, dropout = dropout)
 
@@ -18,6 +22,7 @@ class AudioEncoder(nn.Module):
         self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers = nlayer)
 
     def forward(self, x):
+        x = self.down_sampling(x)
         x = F.relu(self.fc1(x))
         x = self.pos_enc(x)
         x = self.transformer_encoder(x)
@@ -80,3 +85,18 @@ class DotProductAttention(nn.Module):
 
         return output
 
+
+class DownSampling(nn.Module):
+
+    def __init__(self, a: int):
+        super().__init__()
+
+        self.a = a # downsampling factor
+
+    def forward(self, x):
+
+        b_size, seq_len, feat_size = x.size() # batch, sequence length, feature dimensions
+        if seq_len % self.a != 0:
+            raise ValueError("Parameter a should be a divisor of sequence length.")
+
+        return x.view(b_size, int(seq_len/self.a), feat_size*self.a)

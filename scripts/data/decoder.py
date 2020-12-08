@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from torch import Tensor
 import torch.nn.functional as F
 from position_encoder import PositionalEncoding
 
@@ -21,7 +22,7 @@ class MultimodalDecoder(nn.Module):
         self.fc2 = nn.Linear(d_model, vocab_size)
     
 
-    def forward(self, text, encoder_output):
+    def forward(self, text, encoder_output, tgt_mask):
         
         x = F.relu(self.fc1(text))
         
@@ -32,8 +33,17 @@ class MultimodalDecoder(nn.Module):
         # Target must be (len, batch_sise, dim_emb) see doc....
         x = x.view(len_emb, batch_size, dim_emb)
         
-        x = self.transformer_decoder(x, encoder_output)
+        x = self.transformer_decoder(x, encoder_output, tgt_mask = tgt_mask)
         
         x = F.softmax(self.fc2(x))
         
         return x
+    
+   
+    def generate_square_subsequent_mask(self, sz: int) -> Tensor:
+        r"""Generate a square mask for the sequence. The masked positions are filled with float('-inf').
+            Unmasked positions are filled with float(0.0).
+        """
+        mask = (torch.triu(torch.ones(sz, sz)) == 1).transpose(0, 1)
+        mask = mask.float().masked_fill(mask == 0, float('-inf')).masked_fill(mask == 1, float(0.0))
+        return mask

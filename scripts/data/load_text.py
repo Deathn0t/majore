@@ -13,7 +13,7 @@ class TextDataset(Dataset):
         
         self.path_texts = path_texts # avg pool
         self.texts, self.splitted, self.max_seg_word = self.load_texts()
-        self.mapping = self.load_embeddings(path_embeddings)
+        self.mapping, self.vocab_id_dict, self.id_vocab_dict, self.vocab_emb_dict = self.load_embeddings(path_embeddings)
         self.size_emb = len(list(self.mapping["I"]))
         
 
@@ -28,16 +28,17 @@ class TextDataset(Dataset):
         text = self.texts[idx]
         splitted = self.splitted[idx]
         
-        embeddings = self.extract_embedding(splitted)
+        embeddings, id_embeddings = self.extract_embedding(splitted)
         
-        sample = {"text": text, "embedding": embeddings}
+        sample = {"text": text, "embedding": embeddings, "id_embedding": id_embeddings}
 
         return sample
     
     def extract_embedding(self, splitted):
         
         embeddings = np.zeros((self.max_seg_word, self.size_emb), dtype = float)
-    
+        id_embeddings = np.zeros((self.max_seg_word, 1), dtype = float)
+        
         index = 0
         
         for word in splitted:
@@ -46,13 +47,17 @@ class TextDataset(Dataset):
                 
                 word_upper = word.upper()
                 
-                if word_upper in self.mapping:
+                if word_upper in self.vocab_emb_dict:
                     
-                    emb = list(self.mapping[word_upper])
+                    id_emb  = self.vocab_id_dict[word_upper]
+                    id_embeddings[index,:] = id_emb
+                    
+                    emb = list(self.vocab_emb_dict[word_upper])
                     embeddings[index,:] = emb
-                    index+=1
+                    
+                index+=1
          
-        return embeddings        
+        return embeddings, id_embeddings       
                             
                  
     def load_texts(self):
@@ -80,8 +85,6 @@ class TextDataset(Dataset):
                 
             splitted.append(split)
             
-        print(len(lines))
-            
         return  np.array(text), np.array(splitted), largest_split
     
     def load_embeddings(self,fname):
@@ -94,9 +97,30 @@ class TextDataset(Dataset):
             data[tokens[0]] = map(float, tokens[1:])
         
         dict_words = dict()
+        
+        vocab_id_dict = dict()
+        
+        vocab_emb_dict = dict()
+        
+        id_vocab_dict = dict()
+        
+        current_id = 0
+
         for k,v in data.items():
-            dict_words[k] = list(v)
-        return dict_words
+            
+            embs = list(v)
+            dict_words[k] = embs
+            
+            if k.isalpha():
+                
+                vocab_id_dict[k] = current_id
+                vocab_emb_dict[k] = embs
+                id_vocab_dict[current_id] = k
+                
+                current_id += 1    
+            
+        return dict_words, vocab_id_dict, id_vocab_dict, vocab_emb_dict
+    
     
 if  __name__ == "__main__":
 

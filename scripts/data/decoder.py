@@ -10,7 +10,7 @@ from position_encoder import PositionalEncoding
 class MultimodalDecoder(nn.Module):
 
     def __init__(self, text_dim, text_size, vocab_size, nhead, nlayer, d_model, d_feedforward, dropout):
-        super(MultimodalDecoder, self).__init__()
+        super().__init__()
 
         self.fc1 = nn.Linear(text_dim, d_model)
 
@@ -36,13 +36,12 @@ class MultimodalDecoder(nn.Module):
 
         x = self.transformer_decoder(x, encoder_output, tgt_mask = tgt_mask)
 
-        x = F.softmax(self.fc2(x))
-
+        x = self.fc2(x)
         return x
 
 
     def generate_square_subsequent_mask(self, sz: int) -> Tensor:
-        r"""Generate a square mask for the sequence. The masked positions are filled with float('-inf').
+        """Generate a square mask for the sequence. The masked positions are filled with float('-inf').
             Unmasked positions are filled with float(0.0).
         """
         mask = (torch.triu(torch.ones(sz, sz)) == 1).transpose(0, 1)

@@ -61,7 +61,11 @@ class TextDataset(Dataset):
 
     def load_texts(self):
 
+<<<<<<< HEAD
         with open(self.path_texts, "r", encoding='utf-8') as f:
+=======
+        with open(self.path_texts, "r") as f:
+>>>>>>> main
             lines = f.readlines()
 
         text = []

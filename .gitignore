@@ -8,6 +8,30 @@ __pycache__/
 *.ipynb_checkpoints
 
 # Folders
+=======
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+data/
+repos-zip/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+>>>>>>> Stashed changes
 
 data/
 repos-zip/

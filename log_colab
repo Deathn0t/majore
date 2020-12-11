@@ -1,0 +1,46 @@
+Timestamp	Level	Message
+Dec 11, 2020, 2:24:43 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 2:11:44 AM	WARNING	WARNING:root:kernel 0f2adf84-5fb4-4116-906d-99398807cb7e restarted
+Dec 11, 2020, 2:11:44 AM	WARNING	WARNING:root:kernel 0f2adf84-5fb4-4116-906d-99398807cb7e restarted
+Dec 11, 2020, 2:11:44 AM	INFO	KernelRestarter: restarting kernel (1/5), keep random ports
+Dec 11, 2020, 1:44:53 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:43:25 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:41:58 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:30:20 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:28:53 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:27:25 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:25:58 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:24:31 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:23:04 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:06:13 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:04:46 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:03:19 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:01:52 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 1:00:25 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 12:58:58 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 12:57:31 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 12:56:04 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 12:54:37 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 12:53:10 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 12:51:43 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 12:48:50 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 12:47:23 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 12:45:56 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 11, 2020, 12:44:28 AM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 10, 2020, 11:57:17 PM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 10, 2020, 8:55:24 PM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 10, 2020, 8:13:17 PM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 10, 2020, 6:24:28 PM	WARNING	tcmalloc: large alloc 1515102208 bytes == 0x538e000 @ 0x7f61f9c7c1e7 0x7f61f11605e1 0x7f61f11c990d 0x7f61f11ca522 0x7f61f1261bce 0x50a4a5 0x50cc96 0x507be4 0x509900 0x50a2fd 0x50cc96 0x507be4 0x509900 0x50a2fd 0x50beb4 0x5095c8 0x50a2fd 0x50beb4 0x508cd5 0x594a01 0x549e8f 0x5515c1 0x5a9dac 0x50a433 0x50beb4 0x507be4 0x5161c5 0x50a12f 0x50beb4 0x507be4 0x509900
+Dec 10, 2020, 6:24:11 PM	INFO	Kernel restarted: 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 10, 2020, 6:21:01 PM	INFO	Kernel interrupted: 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 10, 2020, 6:16:20 PM	WARNING	tcmalloc: large alloc 1515102208 bytes == 0x56ce000 @ 0x7f317b7ae1e7 0x7f3172c925e1 0x7f3172cfb90d 0x7f3172cfc522 0x7f3172d93bce 0x50a4a5 0x50cc96 0x507be4 0x509900 0x50a2fd 0x50cc96 0x507be4 0x509900 0x50a2fd 0x50beb4 0x5095c8 0x50a2fd 0x50beb4 0x508cd5 0x594a01 0x549e8f 0x5515c1 0x5a9dac 0x50a433 0x50beb4 0x507be4 0x5161c5 0x50a12f 0x50beb4 0x507be4 0x509900
+Dec 10, 2020, 6:12:42 PM	INFO	Adapting to protocol v5.1 for kernel 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 10, 2020, 6:12:40 PM	INFO	Kernel started: 0f2adf84-5fb4-4116-906d-99398807cb7e
+Dec 10, 2020, 6:12:37 PM	INFO	Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+Dec 10, 2020, 6:12:37 PM	INFO	http://172.28.0.2:9000/
+Dec 10, 2020, 6:12:37 PM	INFO	The Jupyter Notebook is running at:
+Dec 10, 2020, 6:12:37 PM	INFO	0 active kernels
+Dec 10, 2020, 6:12:37 PM	INFO	Serving notebooks from local directory: /
+Dec 10, 2020, 6:12:37 PM	INFO	google.colab serverextension initialized.
+Dec 10, 2020, 6:12:37 PM	INFO	Writing notebook server cookie secret to /root/.local/share/jupyter/runtime/notebook_cookie_secret
+Dec 10, 2020, 6:12:37 PM	WARNING	Config option `delete_to_trash` not recognized by `ColabFileContentsManager`.

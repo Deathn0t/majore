@@ -166,9 +166,9 @@ class MultimodalDataset(Dataset):
         # get line corresponding to vector
         vec_line = linecache.getline(self.PATH_FEATURES_T, line_id)
         # drop key to have 100-dim vector
-        vec = vec_line.replace(key, '')
+        vec = vec_line.replace(key, '', 1)
         # return vector
-        return np.fromstring(vec, dtype=np.float64, sep=' ')
+        return np.fromstring(vec, sep=' ')
     
     def get_text_string(self, idx, lang='en'):
         """Gets the text associated with a video segment

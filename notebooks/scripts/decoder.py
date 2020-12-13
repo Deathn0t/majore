@@ -1,10 +1,9 @@
 import torch
 import torch.nn as nn
-from torch import Tensor
 import torch.nn.functional as F
+from torch import Tensor
 
-from position_encoder import PositionalEncoding
-
+from .position_encoder import PositionalEncoding
 
 
 class MultimodalDecoder(nn.Module):

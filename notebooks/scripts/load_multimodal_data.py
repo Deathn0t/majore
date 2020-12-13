@@ -1,5 +1,6 @@
-from torch.utils.data import Dataset
 import torch
+from torch.utils.data import Dataset
+
 
 class MultimodalDataset(Dataset):
     """Merge the Audio, Video, and Text datasets"""

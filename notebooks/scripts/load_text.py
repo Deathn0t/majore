@@ -1,9 +1,10 @@
+import io
 import os
 import re
-import io
+
 import numpy as np
 import torch
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import DataLoader, Dataset
 
 
 class TextDataset(Dataset):

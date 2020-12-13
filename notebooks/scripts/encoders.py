@@ -8,17 +8,26 @@ from .position_encoder import PositionalEncoding
 
 class AudioEncoder(nn.Module):
 
-    def __init__(self, audio_dim, audio_size, tied_output, nhead, nlayer, d_model, d_feedforward, dropout, down_sampling_factor):
+    def __init__(self, audio_feature_size, audio_len_seq, tied_output, nhead, nlayer, d_feedforward, dropout, down_sampling_factor):
         super(AudioEncoder, self).__init__()
 
-        self.fc1 = nn.Linear(audio_dim, tied_output)
+        self.fc1 = nn.Linear(audio_feature_size, tied_output)
 
-        self.pos_enc = PositionalEncoding(d_model = tied_output, max_len = audio_size, dropout = dropout)
+        self.pos_enc = PositionalEncoding(
+            d_model=tied_output,
+            max_len=audio_len_seq,
+            dropout=dropout
+        )
 
         self.down_sampling = DownSampling(a=down_sampling_factor)
 
-        encoder_layer = nn.TransformerEncoderLayer(d_model = d_model, nhead = nhead, dim_feedforward = d_feedforward, dropout = dropout)
-        self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers = nlayer)
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=tied_output*down_sampling_factor,
+            nhead=nhead,
+            dim_feedforward=d_feedforward,
+            dropout=dropout
+        )
+        self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=nlayer)
 
     def forward(self, x):
 
@@ -30,6 +39,7 @@ class AudioEncoder(nn.Module):
         x = x.view(seq_len, batch, dim)
 
         x = self.transformer_encoder(x)
+
         return x
 
 class VideoEncoder(nn.Module):

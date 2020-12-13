@@ -19,7 +19,7 @@ class AudioFeatureDataset(Dataset):
         self.id_path = os.path.join(self.base_path, "id")
         self.scp_path = os.path.join(self.base_path, "feats.scp")
         self.videoId2index = self.compute_ids()
-        self.data = np.zeros((len(self), 10810, 43), dtype=np.float32)
+        self.data = [None for _ in range(len(self))]
         self.load_kaldi()
 
     def compute_ids(self):
@@ -31,7 +31,7 @@ class AudioFeatureDataset(Dataset):
         with ReadHelper(f"scp:{self.scp_path}") as reader:
             for key, mat in tqdm(reader):
                 i = self.videoId2index[key]
-                self.data[i, :mat.shape[0],: mat.shape[1]] = mat[:,:]
+                self.data[i] = mat
 
     def __len__(self):
         return len(self.videoId2index)

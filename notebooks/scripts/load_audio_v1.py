@@ -22,6 +22,8 @@ class AudioFeatureDataset(Dataset):
         # Map id-audio
         self.mapping = self.make_dict()
 
+        self.max_seq_len = 1895
+
     def get_ids(self, id_file):
         with open(id_file) as f:
             content = f.read()
@@ -46,7 +48,9 @@ class AudioFeatureDataset(Dataset):
         sample_id = self.ids[idx]
         sample_ark = self.mapping[sample_id]
         mat = torch.from_numpy(kaldiio.load_mat(sample_ark))
-        padded = torch.zeros((10810, 43))
+        if mat.shape[0] > self.max_seq_len:
+            mat = mat[:self.max_seq_len]
+        padded = torch.zeros((self.max_seq_len, 43))
         padded[:mat.shape[0],: mat.shape[1]] = mat
         return padded
 

@@ -21,7 +21,6 @@ class TextDataset(Dataset):
         return len(self.texts)
 
     def __getitem__(self, idx):
-
         if torch.is_tensor(idx):
             idx = idx.tolist()
 

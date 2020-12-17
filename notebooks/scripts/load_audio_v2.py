@@ -2,7 +2,8 @@ import os
 
 import numpy as np
 from kaldiio import ReadHelper
-from torch.utils.data import DataLoader, Dataset
+import torch
+from torch.utils.data import Dataset
 from tqdm import tqdm
 
 
@@ -19,7 +20,8 @@ class AudioFeatureDataset(Dataset):
         self.id_path = os.path.join(self.base_path, "id")
         self.scp_path = os.path.join(self.base_path, "feats.scp")
         self.videoId2index = self.compute_ids()
-        self.data = [None for _ in range(len(self))]
+        self.max_seq_len = 1895
+        self.data = np.zeros((len(self.videoId2index), self.max_seq_len, 43), dtype=np.float64)
         self.load_kaldi()
 
     def compute_ids(self):
@@ -31,10 +33,14 @@ class AudioFeatureDataset(Dataset):
         with ReadHelper(f"scp:{self.scp_path}") as reader:
             for key, mat in tqdm(reader):
                 i = self.videoId2index[key]
-                self.data[i] = mat
+                seq_len = min(mat.shape[0], self.max_seq_len)
+                self.data[i, :seq_len] = mat[:seq_len]
 
     def __len__(self):
         return len(self.videoId2index)
 
     def __getitem__(self, idx):
-        return self.data[idx]
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
+        sample = {"audio": self.data[idx]}
+        return sample
